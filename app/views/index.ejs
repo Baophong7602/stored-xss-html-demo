@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stored XSS Demo</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Stored XSS into HTML context with nothing encoded
+        </h1>
+
+
+        <div class="post">
+
+            <h2>
+                Demo Blog
+            </h2>
+
+            <p>
+                Đây là bài blog mô phỏng Lab
+                <strong>
+                    Stored XSS into HTML context with nothing encoded
+                </strong>.
+            </p>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="comment-form">
+
+            <h2>
+                Leave a Comment
+            </h2>
+
+
+            <form action="/comment" method="POST">
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your name"
+                        required>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@email.com"
+                        required>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="website">
+                        Website
+                    </label>
+
+                    <input
+                        type="text"
+                        id="website"
+                        name="website"
+                        placeholder="https://example.com">
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="comment">
+                        Comment
+                    </label>
+
+                    <textarea
+                        id="comment"
+                        name="comment"
+                        rows="6"
+                        placeholder="Write your comment..."
+                        required></textarea>
+
+                </div>
+
+
+
+                <button type="submit">
+                    Post Comment
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="comments">
+
+            <h2>
+                Comments
+            </h2>
+
+
+
+            <% if (comments.length === 0) { %>
+
+                <p>
+                    No comments yet.
+                </p>
+
+
+            <% } else { %>
+
+
+
+                <% comments.forEach(comment => { %>
+
+
+                   <div class="comment-card">
+
+    <!-- Name là link dẫn tới Website -->
+    <h3>
+        <a href="<%= comment.website %>">
+            <%= comment.name %>
+        </a>
+    </h3>
+
+
+    <!-- Email không hiển thị -->
+
+
+    <!-- Website không hiển thị -->
+
+
+    <!-- Comment cố tình không encode để mô phỏng Stored XSS -->
+    <p>
+        <strong>
+            Comment:
+        </strong>
+
+        <%- comment.comment %>
+
+    </p>
+
+
+</div>
+
+
+
+                <% }) %>
+
+
+
+            <% } %>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "stored-xss-html-demo",
+  "version": "1.0.0",
+  "description": "Stored XSS HTML Context Demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

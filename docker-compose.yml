@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+
+  stored-xss-demo:
+
+    build: .
+
+    container_name: stored-xss-demo
+
+    ports:
+
+      - "3000:3000"
+
+    volumes:
+
+      - ./app:/app
+
+    restart: unless-stopped
